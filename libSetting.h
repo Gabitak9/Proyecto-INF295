@@ -2,7 +2,6 @@
 #include <sstream>
 #include <string>
 #include <fstream>
-#include <iterator>
 #include <vector>
 
 using namespace std;
@@ -17,16 +16,20 @@ int getNumberNodes(string filename){
 
     int number_nodes;
     ifstream file_nodes(filename);
+
     if (file_nodes.good()){
         string sLine;
         getline(file_nodes, sLine);
         number_nodes = stoi(sLine);
     }
+    
     return number_nodes;
 
 }
 
-void setCoordinate(string filename, int number_nodes){
+vector<vector<int>> setCoordinate(string filename, int number_nodes){
+
+    vector<vector<int>> coordinates(number_nodes, vector<int> (2, 0));
     
     ifstream file(filename);
     string str;
@@ -36,25 +39,47 @@ void setCoordinate(string filename, int number_nodes){
 
         if (count != 0){
 
-            vector <string> tokens;
+            vector <string> pair;
             stringstream check1(str);
 
             string intermediate; 
 
             while(getline(check1, intermediate, ' ')) { 
-                tokens.push_back(intermediate); 
+                pair.push_back(intermediate); 
             } 
             
-            int x = stoi(tokens[0]);
-            int y = stoi(tokens[1]);
+            int x = stoi(pair[0]);
+            int y = stoi(pair[1]);
 
-            cout << x << " -- " << y << endl;
+            coordinates[count-1][0] = x;
+            coordinates[count-1][1] = y;
 
             count++;
 
         }else{count++;}
         
-        
     }
+
+    return coordinates;
+
+}
+
+vector<int> setDemands(string filename, int number_nodes){
+
+    vector<int> demands(number_nodes,0);
+
+    ifstream file(filename);
+    string str;
+    int count;
+
+    while (getline(file, str)) {
+
+        int demand = stoi(str);
+        demands[count] = demand;
+        count++;
+
+    }
+
+    return demands;
 
 }
