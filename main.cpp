@@ -10,10 +10,12 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 
 #include "libPrinter.h"
 #include "libSetting.h"
 #include "libEuclidian.h"
+#include "libMCLP.h"
 
 using namespace std;
 
@@ -30,12 +32,18 @@ int main(int argc, char const *argv[])
 
     } else {
 
+        vector<int> vect{ 1, 0, 0, 1, 0, 0, 1, 1, 0, 0 }; 
+
+        /*Execution time -> start*/
+        time_t start, end;
+        time(&start);
+
         /* Welcome */
         printWelcome();
 
         /* Parse Args*/
         string file_nodos = argv[1];                                // Ccoordinates of each node
-        string file_demandas = argv[2];                             // File with demand of each node
+        string file_demandas = argv[2];                             // Demand of each node
         int numero_nodos = getNumberNodes(file_nodos);              // Number of nodes
         int p = stoi(argv[3]);                                      // Number of servers
         int S = stoi(argv[4]);                                      // Coverage ratio
@@ -49,13 +57,19 @@ int main(int argc, char const *argv[])
         vector<int> demandas;
         demandas = setDemands(file_demandas,numero_nodos);
 
-        /*Get euclidian distances for each node*/
+        /*Get euclidian distances for each pair of node and set neighbors*/
         vector<vector<int>> vecinos(numero_nodos, vector<int> (numero_nodos, 0));
         vecinos = getNeighbors(coordenadas,numero_nodos,S);
-    
+
+        
+
+        /*Execution time -> end*/
+        time(&end);
+
+        /* Calculating total time taken by the program.*/ 
+        double time_taken = double(end - start); 
+        printExecTime(time_taken);
     }
-    
-     
 
     return 0;
 }

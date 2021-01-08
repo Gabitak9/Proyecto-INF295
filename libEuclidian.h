@@ -20,6 +20,8 @@ int euclidianDistance(int x1, int x2, int y1, int y2){
 
 vector<vector<int>> getNeighbors(vector<vector<int>> coordinates, int number_nodes, int coverage_ratio){
 
+    cout << "- Calculando vecinos ...";
+
     vector<vector<int>> distances(number_nodes, vector<int> (number_nodes, 0));
 
     for (int i = 0; i < number_nodes; i++){
@@ -43,6 +45,8 @@ vector<vector<int>> getNeighbors(vector<vector<int>> coordinates, int number_nod
         } 
     }
     
+    cout << "OK" << endl;
+
     return distances;
 
 }

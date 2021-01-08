@@ -29,6 +29,8 @@ int getNumberNodes(string filename){
 
 vector<vector<int>> setCoordinate(string filename, int number_nodes){
 
+    cout << "- Cargando coordenadas ... ";
+
     vector<vector<int>> coordinates(number_nodes, vector<int> (2, 0));
     
     ifstream file(filename);
@@ -60,11 +62,15 @@ vector<vector<int>> setCoordinate(string filename, int number_nodes){
         
     }
 
+    cout << "OK" << endl;
+
     return coordinates;
 
 }
 
 vector<int> setDemands(string filename, int number_nodes){
+
+    cout << "- Cargando demandas ... ";
 
     vector<int> demands(number_nodes,0);
 
@@ -79,6 +85,8 @@ vector<int> setDemands(string filename, int number_nodes){
         count++;
 
     }
+
+    cout << "OK" << endl;
 
     return demands;
 
