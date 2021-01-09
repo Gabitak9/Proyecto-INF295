@@ -61,7 +61,8 @@ int main(int argc, char const *argv[])
         vector<vector<int>> vecinos(numero_nodos, vector<int> (numero_nodos, 0));
         vecinos = getNeighbors(coordenadas,numero_nodos,S);
 
-        
+        /*Call MCLP algorithm*/
+        MCLP(p,numero_nodos,demandas,vecinos);
 
         /*Execution time -> end*/
         time(&end);
