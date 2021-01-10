@@ -62,7 +62,9 @@ int main(int argc, char const *argv[])
         vecinos = getNeighbors(coordenadas,numero_nodos,S);
 
         /*Call MCLP algorithm*/
-        MCLP(p,numero_nodos,demandas,vecinos);
+        vector<int> mejor_solucion(numero_nodos,0);
+        mejor_solucion = MCLP(p,numero_nodos,demandas,vecinos);
+        printResults(mejor_solucion,numero_nodos,final_demand);
 
         /*Execution time -> end*/
         time(&end);

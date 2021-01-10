@@ -53,3 +53,18 @@ void printVector(vector<int> vector, int count) {
     }
     cout << "\n";
 }
+
+void printResults(vector<int> vector, int count, int demand) {
+
+    cout << "------------------------------------------------------------------" << endl;
+    cout << "SOLUCIÓN FINAL:" <<endl;
+    cout << "[*] Demanda total cubierta: " << demand << endl;
+    cout << "[*] Nodos a constuir: ";
+    for (int i = 0; i < count; i++){
+        if(vector[i] == 1){
+        cout << i << " ";
+        }
+    }
+    cout << "\n";
+
+}
