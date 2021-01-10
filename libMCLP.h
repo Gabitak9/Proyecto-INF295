@@ -20,7 +20,7 @@ int final_demand = 0;
 // ----------------------------------------------------------------------------
 // Functions
 
-vector<int> backtracking(int n, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution) ;
+vector<int> backtracking(int n, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) ;
 
 vector<int> getCovergae(vector<int> servers, vector<vector<int>> neighbors, int count){
 
@@ -70,14 +70,15 @@ int serversImplement(vector<int> servers, int count){
 
 
 
-vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution) 
+
+vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) 
 { 
     vector<int> final_solution(best_solution);
+    vector<int> coverage_actual_solution = getCovergae(actual_solution,neighbors,number_nodes);
 
     if (i == number_nodes) {
         int aux = serversImplement(actual_solution,number_nodes); 
         if (aux<=p){
-            vector<int> coverage_actual_solution = getCovergae(actual_solution,neighbors,number_nodes);
             int actual_demand = getTotalDemand(demands,coverage_actual_solution,number_nodes);
             if (actual_demand > final_demand)
             {
@@ -95,11 +96,20 @@ vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, i
     
     /* Left-side of the binary tree*/
     actual_solution[i] = 0; 
-    final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution); 
+    if (coverage_actual_solution[i+1] == 1){
+        final_solution = backtracking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked); 
+    } else {
+        final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked); 
+    }
+    
 
   /* Right side of the binary tree*/
     actual_solution[i] = 1; 
-    final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution); 
+    if (coverage_actual_solution[i+1] == 1){
+        final_solution = backtracking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked);
+    } else {
+        final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked);
+    }
 
     return final_solution;
 } 
@@ -107,13 +117,18 @@ vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, i
 
 vector<int> MCLP(int p, int number_nodes, vector<int> demands, vector<vector<int>> neighbors){
 
+    cout << "------------------------------------------------------------------" << endl;
+    cout << "[!] Calculando solución ... ";
+
     /* Initial Solution */
     vector<int> blocked_nodes(number_nodes,0);
     vector<int> initial_solution(number_nodes,0);
     vector<int> final_solution(number_nodes,0);
 
     /* Backtracking */
-    final_solution = backtracking(number_nodes,initial_solution,0,p,neighbors,demands,final_solution);
+    final_solution = backtracking(number_nodes,initial_solution,0,p,neighbors,demands,final_solution, blocked_nodes);
+
+    cout << "OK" << endl;
     
     return final_solution;
 }
