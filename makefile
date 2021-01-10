@@ -1,4 +1,4 @@
-all:myprogram.o mylib.o
-        g++ main.cpp –o main
-clean:
-        $(RM) main
+CC=g++
+
+all: main.cpp
+	$(CC) main.cpp -o main
