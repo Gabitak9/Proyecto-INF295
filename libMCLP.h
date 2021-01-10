@@ -1,4 +1,7 @@
-
+/*
+    MLCP Algorithm using Forward Checking
+    module of the forward-checking functions
+*/
 
 // ----------------------------------------------------------------------------
 // Modules
@@ -15,14 +18,16 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Global Var
 int final_demand = 0;
-//vector<int> final_solution;
 
 // ----------------------------------------------------------------------------
 // Functions
 
-vector<int> backtracking(int n, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) ;
+vector<int> forwardChecking(int n, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) ;
 
 vector<int> getCovergae(vector<int> servers, vector<vector<int>> neighbors, int count){
+    /*
+    getCovergae() get all nodes with their demand covered
+    */
 
     vector<int> coverage(count,0);
     int is_neighbor;
@@ -44,6 +49,9 @@ vector<int> getCovergae(vector<int> servers, vector<vector<int>> neighbors, int 
 }
 
 int getTotalDemand(vector<int> demands, vector<int> coverage, int count){
+    /*
+    getTotalDemand() get the total demand for a set of covered nodes
+    */
 
     int total_demand = 0;
 
@@ -57,6 +65,9 @@ int getTotalDemand(vector<int> demands, vector<int> coverage, int count){
 }
 
 int serversImplement(vector<int> servers, int count){
+    /*
+    serversImplement() obtains the number of initialized nodes given a partial solution
+    */
 
     int total_servers = 0;
 
@@ -69,10 +80,11 @@ int serversImplement(vector<int> servers, int count){
 }
 
 
+vector<int> forwardChecking(int number_nodes, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) {
+    /*
+    forwardChecking() implements the heuristics of forward-checking
+    */ 
 
-
-vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, int p, vector<vector<int>> neighbors, vector<int> demands, vector<int> best_solution, vector<int> blocked) 
-{ 
     vector<int> final_solution(best_solution);
     vector<int> coverage_actual_solution = getCovergae(actual_solution,neighbors,number_nodes);
 
@@ -80,35 +92,29 @@ vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, i
         int aux = serversImplement(actual_solution,number_nodes); 
         if (aux<=p){
             int actual_demand = getTotalDemand(demands,coverage_actual_solution,number_nodes);
-            if (actual_demand > final_demand)
-            {
+            if (actual_demand > final_demand){
                 final_demand = actual_demand;
                 final_solution = actual_solution;
                 
-                //cout << final_demand << endl;
-                //printVector(actual_solution,number_nodes);
-            }
-            return final_solution;
-        }else{
-            return final_solution;
-        }  
+            } return final_solution;
+        }else{ return final_solution;}  
     } 
     
-    /* Left-side of the binary tree*/
+    /* Left-side of the binary tree with fc*/
     actual_solution[i] = 0; 
     if (coverage_actual_solution[i+1] == 1){
-        final_solution = backtracking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked); 
+        final_solution = forwardChecking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked); 
     } else {
-        final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked); 
+        final_solution = forwardChecking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked); 
     }
     
 
-  /* Right side of the binary tree*/
+  /* Right side of the binary tree with fc*/
     actual_solution[i] = 1; 
     if (coverage_actual_solution[i+1] == 1){
-        final_solution = backtracking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked);
+        final_solution = forwardChecking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked);
     } else {
-        final_solution = backtracking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked);
+        final_solution = forwardChecking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked);
     }
 
     return final_solution;
@@ -116,6 +122,9 @@ vector<int> backtracking(int number_nodes, vector<int> actual_solution, int i, i
 
 
 vector<int> MCLP(int p, int number_nodes, vector<int> demands, vector<vector<int>> neighbors){
+    /*
+    MCLP() call forwardChecking() with the right parameters
+    */
 
     cout << "------------------------------------------------------------------" << endl;
     cout << "[!] Calculando solución ... ";
@@ -125,8 +134,8 @@ vector<int> MCLP(int p, int number_nodes, vector<int> demands, vector<vector<int
     vector<int> initial_solution(number_nodes,0);
     vector<int> final_solution(number_nodes,0);
 
-    /* Backtracking */
-    final_solution = backtracking(number_nodes,initial_solution,0,p,neighbors,demands,final_solution, blocked_nodes);
+    /* forwardChecking */
+    final_solution = forwardChecking(number_nodes,initial_solution,0,p,neighbors,demands,final_solution, blocked_nodes);
 
     cout << "OK" << endl;
     

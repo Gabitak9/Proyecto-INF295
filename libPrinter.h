@@ -1,3 +1,10 @@
+/*
+    MLCP Algorithm using Forward Checking
+    module of the functions that print information
+*/
+
+// ----------------------------------------------------------------------------
+// Modules
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -5,6 +12,9 @@
 #include <vector>
 
 using namespace std;
+
+// ----------------------------------------------------------------------------
+// Functions
 
 void printWelcome() {
 
@@ -37,13 +47,10 @@ void printNeighbors(vector<vector<int>> neighbors, int count){
     cout << "------------------------------------------------------------------" << endl;
     for (int i = 0; i < count; i++){
         for (int j = 0; j < count; j++){
-        
             cout << neighbors[i][j] << " ";
-
         }
         cout << "\n";
     }
-
 }
 
 void printVector(vector<int> vector, int count) {

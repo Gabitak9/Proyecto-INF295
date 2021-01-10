@@ -1,3 +1,10 @@
+/*
+    MLCP Algorithm using Forward Checking
+    module of the euclidian distance functions
+*/
+
+// ----------------------------------------------------------------------------
+// Modules
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -5,7 +12,13 @@
 
 using namespace std;
 
+// ----------------------------------------------------------------------------
+// Functions
+
 int euclidianDistance(int x1, int x2, int y1, int y2){
+    /*
+    euclidianDistance() get de euclidian distance of a pair of nodes
+    */
 
     double x = x1 - x2;
 	double y = y1 - y2;
@@ -19,6 +32,9 @@ int euclidianDistance(int x1, int x2, int y1, int y2){
 }
 
 vector<vector<int>> getNeighbors(vector<vector<int>> coordinates, int number_nodes, int coverage_ratio){
+    /*
+    getNeighbors() obtains the nodes that cover its demand given the construction of a node
+    */
 
     cout << "- Calculando vecinos ...";
 

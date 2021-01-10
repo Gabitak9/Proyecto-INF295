@@ -1,3 +1,10 @@
+/*
+    MLCP Algorithm using Forward Checking
+    module of the functions to load data
+*/
+
+// ----------------------------------------------------------------------------
+// Modules
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -6,13 +13,13 @@
 
 using namespace std;
 
-struct CoordinatePair
-{
-    int x;
-    int y;
-};
+// ----------------------------------------------------------------------------
+// Functions
 
 int getNumberNodes(string filename){
+    /*
+    getNumberNodes() obtain the total number of nodes
+    */
 
     int number_nodes;
     ifstream file_nodes(filename);
@@ -28,6 +35,9 @@ int getNumberNodes(string filename){
 }
 
 vector<vector<int>> setCoordinate(string filename, int number_nodes){
+    /*
+    setCoordinate() obtain the vector with the coordinates of each node
+    */
 
     cout << "- Cargando coordenadas ... ";
 
@@ -69,6 +79,9 @@ vector<vector<int>> setCoordinate(string filename, int number_nodes){
 }
 
 vector<int> setDemands(string filename, int number_nodes){
+    /*
+    setDemands() obtain the vector with the demand of each node
+    */
 
     cout << "- Cargando demandas ... ";
 
