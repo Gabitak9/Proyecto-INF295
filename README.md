@@ -20,9 +20,9 @@ Para correr el programa debe ejecutar el siguiente comando:
 
 Donde:
 - `ARCHIVO_DE_COORDENADAS` corresponde al archivo de la instancia que contiene las coordenadas de los nodos. (Ej. SCJ10.txt)
--`ARCHIVO_DE_DEMANDAS` corresponde al archivo de la instancia que contiene las demandas de los nodos (Ej. demand-SCJ10.txt)
--`CANTIDAD_DE_SERVIDORES` corresponde a la cantidad de servidores (p) que se desean instalar
--`RANGO_DE_COBERTURA` corresponde al rango de cobertura que tienen (S) los servidores
+- `ARCHIVO_DE_DEMANDAS` corresponde al archivo de la instancia que contiene las demandas de los nodos (Ej. demand-SCJ10.txt)
+- `CANTIDAD_DE_SERVIDORES` corresponde a la cantidad de servidores (p) que se desean instalar
+- `RANGO_DE_COBERTURA` corresponde al rango de cobertura que tienen (S) los servidores
 
 ### Experimentos
 Pude automatizar la ejecución de todas las instancias para distintos parámetros de p y de S. Utilice el siguiente comando (Los resultados tanto de la ejecución cono los tiempos de computación serán volcados en el archivo `resultados_experimentos.txt`).
