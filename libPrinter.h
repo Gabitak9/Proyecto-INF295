@@ -38,7 +38,8 @@ void printParameter(string file_nodos, string file_demandas, int number_nodes, i
 void printExecTime(double time_taken){
 
     cout << "------------------------------------------------------------------" << endl;
-    cout << "Tiempo de ejecución : " << fixed << time_taken << setprecision(5); cout << " sec " << endl; 
+    cout << "[*] Tiempo de ejecución app: " << fixed << time_taken << setprecision(5); cout << " sec " << endl;
+    cout << "[*] Detalles :" <<endl;
 
 }
 

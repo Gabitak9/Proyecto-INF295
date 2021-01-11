@@ -113,7 +113,7 @@ vector<int> forwardChecking(int number_nodes, vector<int> actual_solution, int i
     actual_solution[i] = 1; 
     if (coverage_actual_solution[i+1] == 1){
         final_solution = forwardChecking(number_nodes, actual_solution, i + 2,p,neighbors,demands,final_solution, blocked);
-    } else {
+   } else {
         final_solution = forwardChecking(number_nodes, actual_solution, i + 1,p,neighbors,demands,final_solution, blocked);
     }
 
